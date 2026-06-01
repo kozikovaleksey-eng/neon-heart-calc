@@ -11,5 +11,10 @@
   "devDependencies": {
     "prettier": "^3.8.3",
     "typescript": "~5.9.3"
+  },
+  "dependencies": {
+    "expo": "~54.0.35",
+    "react": "catalog:",
+    "react-native": "0.81.5"
   }
 }
