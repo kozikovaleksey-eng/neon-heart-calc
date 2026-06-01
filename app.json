@@ -1,8 +1,9 @@
 {
   "expo": {
+    "slug": "neon-heart-calc",
     "extra": {
       "eas": {
-        "projectId": "1afe7e99-aeee-4521-a8c0-c54a1074144c"
+        "projectId": "13735c87-2905-4974-8226-f4b0cd5ccbb5"
       }
     },
     "android": {
