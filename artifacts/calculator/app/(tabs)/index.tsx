@@ -1,5 +1,5 @@
 import * as Haptics from "expo-haptics";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Animated,
   Platform,
@@ -111,6 +111,10 @@ export default function CalculatorScreen() {
   const [operator, setOperator] = useState<string | null>(null);
   const [waitingForOp, setWaitingForOp] = useState(false);
   const [hearts, setHearts] = useState<Heart[]>([]);
+  const [showLove, setShowLove] = useState(false);
+  const blinkAnim = useRef(new Animated.Value(1)).current;
+  const blinkLoopRef = useRef<Animated.CompositeAnimation | null>(null);
+  const loveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const spawnHearts = (x: number, y: number) => {
     const count = 4 + Math.floor(Math.random() * 4);
@@ -188,6 +192,28 @@ export default function CalculatorScreen() {
     setFirstOp(null);
     setOperator(null);
     setWaitingForOp(false);
+
+    // Clear any previous love timer
+    if (loveTimerRef.current) clearTimeout(loveTimerRef.current);
+    if (blinkLoopRef.current) blinkLoopRef.current.stop();
+
+    // Start blinking loop
+    blinkAnim.setValue(1);
+    blinkLoopRef.current = Animated.loop(
+      Animated.sequence([
+        Animated.timing(blinkAnim, { toValue: 0, duration: 350, useNativeDriver: true }),
+        Animated.timing(blinkAnim, { toValue: 1, duration: 350, useNativeDriver: true }),
+      ])
+    );
+    blinkLoopRef.current.start();
+    setShowLove(true);
+
+    // Hide after 3 seconds
+    loveTimerRef.current = setTimeout(() => {
+      if (blinkLoopRef.current) blinkLoopRef.current.stop();
+      setShowLove(false);
+      blinkAnim.setValue(1);
+    }, 3000);
   };
 
   const onSpecial = (label: string) => {
@@ -238,14 +264,25 @@ export default function CalculatorScreen() {
         <Text style={styles.expression} numberOfLines={1}>
           {expression}
         </Text>
-        <Text
-          style={[styles.displayNum, { fontSize: displayFontSize }]}
-          numberOfLines={1}
-          adjustsFontSizeToFit
-          minimumFontScale={0.4}
-        >
-          {display}
-        </Text>
+        {showLove ? (
+          <Animated.Text
+            style={[styles.loveText, { opacity: blinkAnim }]}
+            numberOfLines={2}
+            adjustsFontSizeToFit
+            minimumFontScale={0.5}
+          >
+            Лёша любит Таню! ♥
+          </Animated.Text>
+        ) : (
+          <Text
+            style={[styles.displayNum, { fontSize: displayFontSize }]}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.4}
+          >
+            {display}
+          </Text>
+        )}
       </View>
 
       {/* Divider */}
@@ -364,6 +401,16 @@ const styles = StyleSheet.create({
     fontFamily: "Inter_700Bold",
     textAlign: "right",
     letterSpacing: -1,
+  },
+  loveText: {
+    color: "#FF2D78",
+    fontFamily: "Inter_700Bold",
+    fontSize: 32,
+    textAlign: "right",
+    letterSpacing: 0.5,
+    textShadowColor: "#FF69B4",
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 12,
   },
   divider: {
     height: 1,
