@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "1afe7e99-aeee-4521-a8c0-c54a1074144c"
+      }
+    },
+    "android": {
+      "package": "com.aleksk.lovetatyanacalculator"
+    }
+  }
+}
