@@ -213,7 +213,7 @@ export default function CalculatorScreen() {
       if (blinkLoopRef.current) blinkLoopRef.current.stop();
       setShowLove(false);
       blinkAnim.setValue(1);
-    }, 3000);
+    }, 1500);
   };
 
   const onSpecial = (label: string) => {
