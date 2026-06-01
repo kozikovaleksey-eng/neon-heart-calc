@@ -233,33 +233,6 @@ export default function CalculatorScreen() {
         translucent={false}
       />
 
-      {/* Hearts overlay */}
-      <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
-        {hearts.map((h) => (
-          <Animated.Text
-            key={h.id}
-            style={{
-              position: "absolute",
-              left: h.x - h.size / 2,
-              top: h.y - h.size / 2,
-              fontSize: h.size,
-              color: h.color,
-              opacity: h.anim.interpolate({
-                inputRange: [0, 0.15, 0.75, 1],
-                outputRange: [0, 1, 0.85, 0],
-              }),
-              transform: [
-                { translateY: h.anim.interpolate({ inputRange: [0, 1], outputRange: [0, -260] }) },
-                { translateX: h.anim.interpolate({ inputRange: [0, 1], outputRange: [0, h.driftX] }) },
-                { scale: h.anim.interpolate({ inputRange: [0, 0.3, 1], outputRange: [0.2, 1.3, 0.5] }) },
-              ],
-            }}
-          >
-            {h.char}
-          </Animated.Text>
-        ))}
-      </View>
-
       {/* Display area */}
       <View style={[styles.display, { height: displayH }]}>
         <Text style={styles.expression} numberOfLines={1}>
@@ -335,6 +308,33 @@ export default function CalculatorScreen() {
               );
             })}
           </View>
+        ))}
+      </View>
+
+      {/* Hearts overlay — rendered last so it's on top of everything */}
+      <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
+        {hearts.map((h) => (
+          <Animated.Text
+            key={h.id}
+            style={{
+              position: "absolute",
+              left: h.x - h.size / 2,
+              top: h.y - h.size / 2,
+              fontSize: h.size,
+              color: h.color,
+              opacity: h.anim.interpolate({
+                inputRange: [0, 0.15, 0.75, 1],
+                outputRange: [0, 1, 0.85, 0],
+              }),
+              transform: [
+                { translateY: h.anim.interpolate({ inputRange: [0, 1], outputRange: [0, -260] }) },
+                { translateX: h.anim.interpolate({ inputRange: [0, 1], outputRange: [0, h.driftX] }) },
+                { scale: h.anim.interpolate({ inputRange: [0, 0.3, 1], outputRange: [0.2, 1.3, 0.5] }) },
+              ],
+            }}
+          >
+            {h.char}
+          </Animated.Text>
         ))}
       </View>
     </View>
