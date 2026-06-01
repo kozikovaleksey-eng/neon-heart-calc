@@ -1,0 +1,27 @@
+kind = "mobile"
+previewPath = "/"
+title = "Pink Heart Calculator"
+version = "1.0.0"
+id = "artifacts/calculator"
+router = "expo-domain"
+
+[[integratedSkills]]
+name = "expo"
+version = "1.0.0"
+
+[[services]]
+ensurePreviewReachable = "/status"
+name = "expo"
+paths = [ "/" ]
+localPort = 24992
+
+[services.development]
+run = "pnpm --filter @workspace/calculator run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/calculator", "run", "build" ]
+run = [ "pnpm", "--filter", "@workspace/calculator", "run", "serve" ]
+
+[services.env]
+PORT = "24992"
+BASE_PATH = "/"
