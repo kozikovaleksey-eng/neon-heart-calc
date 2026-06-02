@@ -16,7 +16,9 @@
     "ios": {
       "supportsTablet": false
     },
-    "android": {},
+    "android": {
+      "package": "com.aleksk.lovetatyanacalculator"
+    },
     "web": {
       "favicon": "./assets/images/icon.png"
     },
@@ -41,4 +43,5 @@
     }
   }
 }
+
 
