@@ -15,6 +15,13 @@
       "node": "20.19.0",
       "image": "latest"
     },
-
-
-
+    "production": {
+      "autoIncrement": true,
+      "node": "20.19.0",
+      "image": "latest"
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
