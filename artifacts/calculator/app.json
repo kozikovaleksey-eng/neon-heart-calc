@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Love Tatyana Calculator",
-    "slug": "calculator",
+    "slug": "neon-heart-calc",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -43,5 +43,3 @@
     }
   }
 }
-
-
